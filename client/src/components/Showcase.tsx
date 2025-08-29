@@ -133,7 +133,7 @@ function Showcase({ onBack }: ShowcaseProps) {
   
   useEffect(() => {
     fetchOrderBook(selectedCoin, true) // Show loading on initial load
-    const interval = setInterval(() => fetchOrderBook(selectedCoin, false), 1000) // Update every 1 second
+    const interval = setInterval(() => fetchOrderBook(selectedCoin, false), 1000)
     
     return () => clearInterval(interval)
   }, [selectedCoin])
