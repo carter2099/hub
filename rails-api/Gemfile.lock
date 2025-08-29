@@ -96,11 +96,22 @@ GEM
     erubi (1.13.1)
     et-orbi (1.3.0)
       tzinfo
+    faraday (2.13.4)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.1)
+      net-http (>= 0.5.0)
+    faraday-retry (2.3.2)
+      faraday (~> 2.0)
     fugit (1.11.2)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hyperliquid (0.1.0)
+      faraday (~> 2.0)
+      faraday-retry (~> 2.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.1)
@@ -135,6 +146,8 @@ GEM
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
+    net-http (0.6.0)
+      uri
     net-imap (0.5.10)
       date
       net-protocol
@@ -181,6 +194,9 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.0)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -320,8 +336,10 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  hyperliquid
   kamal
   puma (>= 5.0)
+  rack-cors
   rails (~> 8.0.2, >= 8.0.2.1)
   rubocop-rails-omakase
   solid_cable
