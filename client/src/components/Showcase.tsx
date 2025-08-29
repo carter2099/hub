@@ -201,7 +201,7 @@ function Showcase({ onBack }: ShowcaseProps) {
               </div>
               
               <div className="order-book-section">
-                <h3>Order Book</h3>
+                <h3>Live Hyperliquid Order Book</h3>
                 
                 <div className="coin-selector">
                   {prices.map((priceData) => (
