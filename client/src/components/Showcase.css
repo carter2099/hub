@@ -1,0 +1,205 @@
+/* Showcase container */
+.showcase-container {
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Header section */
+.showcase-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back-button {
+  background: transparent;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.showcase-title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+/* Tabs container */
+.tabs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tabs header */
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #666666;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.tab:hover:not(:disabled) {
+  color: #000000;
+}
+
+.tab.active {
+  color: #000000;
+  border-bottom-color: #000000;
+  font-weight: 500;
+}
+
+.tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Tab content */
+.tab-content {
+  min-height: 400px;
+}
+
+.tab-panel {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.tab-panel h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.015em;
+}
+
+.tab-panel p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0 0 2rem 0;
+}
+
+/* Repository links */
+.repository-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.repo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+}
+
+.repo-item strong {
+  font-weight: 600;
+  color: #000000;
+}
+
+.repo-item a {
+  color: #0066cc;
+  text-decoration: none;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.repo-item a:hover {
+  color: #004499;
+  text-decoration: underline;
+}
+
+.repo-description {
+  font-size: 0.875rem;
+  color: #666666;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .showcase-container {
+    padding: 1rem;
+  }
+  
+  .showcase-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .showcase-title {
+    font-size: 1.75rem;
+  }
+  
+  .tabs-header {
+    flex-direction: column;
+  }
+  
+  .tab {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-right: 2px solid transparent;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tab.active {
+    border-right-color: #000000;
+    border-bottom-color: #eee;
+  }
+  
+  .repository-links {
+    gap: 1rem;
+  }
+  
+  .repo-item {
+    padding: 1rem;
+  }
+  
+  .repo-item a {
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
+}

@@ -1,11 +1,15 @@
 import './LandingPage.css'
 
-function LandingPage() {
+interface LandingPageProps {
+  onEnterClick: () => void
+}
+
+function LandingPage({ onEnterClick }: LandingPageProps) {
   return (
     <div className="landing-container">
       <h1 className="site-title">carter2099.com</h1>
       
-      <button className="enter-button">
+      <button className="enter-button" onClick={onEnterClick}>
         Enter
       </button>
       
