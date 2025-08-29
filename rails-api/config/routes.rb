@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     get "prices/current", to: "prices#current"
+    get "prices/order_book", to: "prices#order_book"
   end
 
   # Defines the root path route ("/")

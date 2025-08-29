@@ -12,12 +12,31 @@ interface Price {
   updated_at: string
 }
 
+interface OrderBookLevel {
+  price: number
+  size: number
+  formatted_price: string
+  formatted_size: string
+}
+
+interface OrderBook {
+  asks: OrderBookLevel[]
+  bids: OrderBookLevel[]
+  updated_at: number
+}
+
 function Showcase({ onBack }: ShowcaseProps) {
   const [activeTab, setActiveTab] = useState('hyperliquid-sdk')
   const [prices, setPrices] = useState<Price[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string>('')
+  
+  // Order book state
+  const [orderBook, setOrderBook] = useState<OrderBook | null>(null)
+  const [selectedCoin, setSelectedCoin] = useState<string>('BTC')
+  const [orderBookLoading, setOrderBookLoading] = useState(true)
+  const [orderBookError, setOrderBookError] = useState<string | null>(null)
 
   const fetchPrices = async () => {
     try {
@@ -58,12 +77,66 @@ function Showcase({ onBack }: ShowcaseProps) {
     }
   }
 
+  const fetchOrderBook = async (coin: string, isInitialLoad = false) => {
+    try {
+      console.log('Fetching order book for:', coin)
+      
+      // Only show loading on initial load or coin change, not on refresh
+      if (isInitialLoad) {
+        setOrderBookLoading(true)
+      }
+      
+      const response = await fetch(`http://localhost:3000/api/prices/order_book?coin=${coin}`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'omit'
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      console.log('Order book data:', data)
+      
+      if (data.success) {
+        setOrderBook(data.order_book)
+        setOrderBookError(null)
+      } else {
+        setOrderBookError(data.message || 'Failed to fetch order book')
+      }
+    } catch (err) {
+      console.error('Error fetching order book:', err)
+      if (err instanceof Error) {
+        setOrderBookError(`Error: ${err.message}`)
+      } else {
+        setOrderBookError('Network error: Unable to fetch order book')
+      }
+    } finally {
+      if (isInitialLoad) {
+        setOrderBookLoading(false)
+      }
+    }
+  }
+
+  const handleCoinSelect = (coin: string) => {
+    setSelectedCoin(coin)
+    fetchOrderBook(coin, true) // Show loading when switching coins
+  }
+
   useEffect(() => {
     fetchPrices()
     const interval = setInterval(fetchPrices, 10000) // Update every 10 seconds
     
     return () => clearInterval(interval)
   }, [])
+  
+  useEffect(() => {
+    fetchOrderBook(selectedCoin, true) // Show loading on initial load
+    const interval = setInterval(() => fetchOrderBook(selectedCoin, false), 1000) // Update every 1 second
+    
+    return () => clearInterval(interval)
+  }, [selectedCoin])
 
   return (
     <div className="showcase-container">
@@ -125,6 +198,67 @@ function Showcase({ onBack }: ShowcaseProps) {
                     )}
                   </div>
                 )}
+              </div>
+              
+              <div className="order-book-section">
+                <h3>Order Book</h3>
+                
+                <div className="coin-selector">
+                  {prices.map((priceData) => (
+                    <button
+                      key={priceData.symbol}
+                      className={`coin-button ${selectedCoin === priceData.symbol ? 'active' : ''}`}
+                      onClick={() => handleCoinSelect(priceData.symbol)}
+                    >
+                      {priceData.symbol}
+                    </button>
+                  ))}
+                </div>
+                
+                {orderBookLoading ? (
+                  <div className="loading-state">Loading order book...</div>
+                ) : orderBookError ? (
+                  <div className="error-state">
+                    <p>Error: {orderBookError}</p>
+                    <button className="retry-button" onClick={() => fetchOrderBook(selectedCoin, true)}>
+                      Retry
+                    </button>
+                  </div>
+                ) : orderBook ? (
+                  <div className="order-book-container">
+                    <div className="order-book-table">
+                      <div className="asks-section">
+                        <div className="section-header asks-header">
+                          <span>Price</span>
+                          <span>Size</span>
+                        </div>
+                        {orderBook.asks.map((ask, index) => (
+                          <div key={`ask-${index}`} className="order-level ask-level">
+                            <span className="price">{ask.formatted_price}</span>
+                            <span className="size">{ask.formatted_size}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="spread-divider">
+                        <span className="spread-label">Spread</span>
+                      </div>
+                      
+                      <div className="bids-section">
+                        <div className="section-header bids-header">
+                          <span>Price</span>
+                          <span>Size</span>
+                        </div>
+                        {orderBook.bids.map((bid, index) => (
+                          <div key={`bid-${index}`} className="order-level bid-level">
+                            <span className="price">{bid.formatted_price}</span>
+                            <span className="size">{bid.formatted_size}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
               </div>
               
               <div className="repository-links">

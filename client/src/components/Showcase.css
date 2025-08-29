@@ -200,6 +200,144 @@
   font-style: italic;
 }
 
+/* Order Book Section */
+.order-book-section {
+  margin: 2rem 0;
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+}
+
+.order-book-section h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Coin Selector */
+.coin-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.coin-button {
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.coin-button:hover {
+  background-color: #f5f5f5;
+}
+
+.coin-button.active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Order Book Container */
+.order-book-container {
+  background: #ffffff;
+  border: 1px solid #000000;
+  overflow: hidden;
+}
+
+.order-book-table {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section Headers */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f8f8;
+}
+
+.asks-header {
+  color: #cc3333;
+}
+
+.bids-header {
+  color: #339933;
+}
+
+/* Order Levels */
+.asks-section,
+.bids-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-level {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.1s ease;
+}
+
+.order-level:hover {
+  background-color: #f8f8f8;
+}
+
+.ask-level {
+  background-color: rgba(204, 51, 51, 0.05);
+}
+
+.ask-level .price {
+  color: #cc3333;
+}
+
+.bid-level {
+  background-color: rgba(51, 153, 51, 0.05);
+}
+
+.bid-level .price {
+  color: #339933;
+}
+
+.order-level .size {
+  color: #666666;
+  text-align: right;
+}
+
+/* Spread Divider */
+.spread-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.spread-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Repository links */
 .repository-links {
   display: flex;
@@ -314,5 +452,30 @@
   
   .price-value {
     font-size: 1rem;
+  }
+  
+  .order-book-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .coin-selector {
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .coin-button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .order-level {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .section-header {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
   }
 }
